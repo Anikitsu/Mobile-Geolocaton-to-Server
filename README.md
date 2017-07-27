@@ -1,6 +1,8 @@
 # Mobile-Geolocaton-to-Server
 个人用途移动APP，用于在“一些特殊的情况”下，将实时位置持续记录在服务器上
 
+![image](http://github.com/Aniki-Chen/Mobile-Geolocaton-to-Server/raw/master/unpackage/res/icons/180x180.png)
+
 An app on mobile phone for private use, aimming to keep recording geolocation on a private server, in 'some special situations'.
 
 APP基于 HTML5+ 开发，附带Node.js的服务器端
