@@ -1,7 +1,7 @@
 # Mobile-Geolocaton-to-Server
 个人用途移动APP，用于在“一些特殊的情况”下，将实时位置持续记录在服务器上
 
-![image](http://github.com/Aniki-Chen/Mobile-Geolocaton-to-Server/raw/master/Praise the Sun.png)
+![image](http://github.com/Aniki-Chen/Mobile-Geolocaton-to-Server/raw/master/PraisetheSun.png)
 
 An app on mobile phone for private use, aimming to keep recording geolocation on a private server, in 'some special situations'.
 
