@@ -1,10 +1,12 @@
 # Mobile-Geolocaton-to-Server
 个人用途移动APP，用于在“一些特殊的情况”下，将实时位置持续记录在服务器上
+
 An app on mobile phone for private use, aimming to keep recording geolocation on a private server, in 'some special situations'.
 
 APP基于 HTML5+ 开发，附带Node.js的服务器端
 
 [APP说明]
+
 0)	已发布安卓端v0.0.1版本apk，可以参考[服务端说明].0设置服务端以体验
 	// apk.path=unpackage/release/*.apk
 1)	目前持续记录每次间隔时间为5秒，可在GeoSafty.html中，watchPos内更改
@@ -18,6 +20,7 @@ APP基于 HTML5+ 开发，附带Node.js的服务器端
 5)	仍保留在ios端上运行的机能，但尚未进行测试
 
 [服务端说明]
+
 0)	v0.0.1版本用于局域网内测试，服务端局域网内IP设为192.168.137.1
 
 1)	服务开放8010端口，可在GSserver.js内更改
