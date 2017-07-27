@@ -1,0 +1,167 @@
+{
+	"index.html": {
+		"resources": [
+			"css/common.css",
+			"js/update.js",
+			"js/shortcut.js",
+			"js/immersed.js"
+		],
+		"refer": [
+			"plus/audio.html",
+			"plus/geolocation.html",
+			"plus/gallery.html",
+			"plus/maps.html",
+			"plus/accelerometer.html",
+			"plus/nativeui.html",
+			"about.html",
+			"plus/device.html"
+		]
+	},
+	"plus/audio.html": {
+		"resources": [
+			"js/common.js"
+		],
+		"refer": []
+	},
+	"plus/geolocation.html": {
+		"refer": [
+			"plus/doc.html",
+			"plus/maps_map_sub.html"
+		],
+		"resources": [
+			"js/common.js",
+			"css/common.css",
+			"js/immersed.js",
+			"plus/maps_map_sub.html"
+		]
+	},
+	"plus/doc.html": {
+		"refer": [
+			"doc/geolocation.html",
+			"doc/maps.html",
+			"doc/accelerometer.html",
+			"doc/nativeUI.html",
+			"doc/device.html"
+		],
+		"resources": [
+			"js/immersed.js"
+		]
+	},
+	"doc/geolocation.html": {
+		"resources": [
+			"doc/res/doc.css",
+			"doc/res/prettify.js",
+			"doc/res/prettify.sons.css",
+			"doc/res/doc.js"
+		],
+		"refer": []
+	},
+	"plus/maps_map.html": {
+		"resources": [
+			"js/common.js",
+			"css/common.css",
+			"js/immersed.js",
+			"plus/maps_map_sub.html"
+		],
+		"refer": [
+			"plus/maps_map_sub.html"
+		]
+	},
+	"plus/maps.html": {
+		"refer": [
+			"plus/maps_map.html"
+		],
+		"resources": [
+			"css/common.css",
+			"js/common.js"
+		]
+	},
+	"doc/maps.html": {
+		"resources": [
+			"doc/res/doc.css",
+			"doc/res/prettify.js",
+			"doc/res/prettify.sons.css",
+			"doc/res/doc.js"
+		],
+		"refer": []
+	},
+	"plus/accelerometer_shake.html": {
+		"resources": [
+			"img/shake/1.jpg",
+			"img/shakedown.png",
+			"img/shakeup.png",
+			"img/shake/3.jpg",
+			"img/shake/2.jpg"
+		],
+		"refer": []
+	},
+	"plus/accelerometer.html": {
+		"resources": [
+			"js/common.js"
+		],
+		"refer": [
+			"plus/accelerometer_shake.html",
+			"plus/doc.html"
+		]
+	},
+	"doc/accelerometer.html": {
+		"resources": [
+			"doc/res/doc.css",
+			"doc/res/prettify.js",
+			"doc/res/prettify.sons.css",
+			"doc/res/doc.js"
+		],
+		"refer": []
+	},
+	"plus/nativeui.html": {
+		"resources": [
+			"js/common.js",
+			"css/common.css"
+		],
+		"refer": []
+	},
+	"doc/nativeUI.html": {
+		"resources": [
+			"doc/res/doc.css",
+			"doc/res/prettify.sons.css"
+		],
+		"refer": []
+	},
+	"about.html": {
+		"resources": [
+			"css/common.css",
+			"img/qr.png"
+		],
+		"refer": []
+	},
+	"doc/device.html": {
+		"resources": [
+			"doc/res/doc.css",
+			"doc/res/prettify.js",
+			"doc/res/prettify.sons.css",
+			"doc/res/doc.js"
+		],
+		"refer": []
+	},
+	"plus/maps_map_sub.html": {
+		"resources": [
+			"css/common.css"
+		],
+		"refer": []
+	},
+	"geolocation.html": {
+		"resources": [
+			"css/common.css",
+			"js/common.js",
+			"js/immersed.js"
+		]
+	},
+	"GeoSafty.html": {
+		"resources": [
+			"js/common.js",
+			"css/common.css",
+			"js/immersed.js",
+			"js/sendpos.js"
+		]
+	}
+}

@@ -1,0 +1,181 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<meta name="HandheldFriendly" content="true"/>
+		<meta name="MobileOptimized" content="320"/>
+		<title>GeoSafty</title>
+		<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8"/>
+	</head>
+	<body>
+		
+		<div id="output" ></div>
+		<div id="map">地图加载中...</div>
+		<div id="postatus" class="status"></div>
+		<div id="serverstatus" class="status"></div>
+		<div id="dcontent" class="dcontent">
+			<div id="watchpos" class="button" onclick="watchPos()">开始记录</div>
+			<div id="getpos" class="button" onclick="refreshpos(true)">获取位置</div>
+			<div id="clearwatch" class="button" onclick="clearWatch()">停止记录</div>
+		</div>
+		
+		<script type="text/javascript">
+			var watchId;
+			var posobj;
+			function geoInf( position ){
+				var str = "";
+				var obj=new Object;
+				str += "地址："+position.addresses+"\n";//获取地址信息
+				obj.address=position.addresses;
+				str += "坐标类型："+position.coordsType+"\n";
+				obj.coordsType=position.coordsType;
+				obj.dateflag = new Date().toLocaleDateString();
+				str += "日期："+obj.dateflag+"\n";
+				obj.timeflag = new Date().toLocaleTimeString();
+				str += "时间："+obj.timeflag+"\n";
+				var codns = position.coords;//获取地理坐标信息；
+				obj.lat = codns.latitude;//获取到当前位置的纬度；
+				str += "纬度："+obj.lat+"\n";
+				obj.longt = codns.longitude;//获取到当前位置的经度
+				str += "经度："+obj.longt+"\n";
+				var alt = codns.altitude;//获取到当前位置的海拔信息；
+				str += "海拔："+alt+"\n";
+				var accu = codns.accuracy;//地理坐标信息精确度信息；
+				str += "精确度："+accu+"\n";
+				var altAcc = codns.altitudeAccuracy;//获取海拔信息的精确度；
+				str += "海拔精确度："+altAcc+"\n";
+				obj.heading = codns.heading;//获取设备的移动方向；
+				str += "移动方向："+obj.heading+"\n";
+				obj.speed = codns.speed;//获取设备的移动速度；
+				str += "移动速度："+obj.speed;
+				//console.log(JSON.stringify(position));
+				outLine( str );
+				return obj;
+			}
+			function getPos(){
+				outClean();
+				plus.geolocation.getCurrentPosition( function ( s ) {
+					geoInf(s);
+				}, function ( e ) {
+					document.getElementById("postatus").innerHTML="丢人，退群吧";
+					outSet(e.message );
+				}, {geocode:true,provider:'amap'} );
+			}
+			function refreshpos(p){
+				outClean();
+				document.getElementById("postatus").innerHTML="少女祈祷中";
+				plus.geolocation.getCurrentPosition( function ( s ) {
+					posobj=geoInf(s);
+					if (p) {document.getElementById("postatus").innerHTML="";}
+					posobj.timeflag=new Date().toLocaleTimeString();
+					sendpos(posobj);
+				}, function ( e ) {
+					outSet(e.message );
+				}, {geocode:true,provider:'amap'} );
+			}
+			function watchPos(){
+				if ( watchId ) {
+					return;
+				}
+				refreshpos();
+				watchId=setInterval("refreshpos()",60000);
+			}
+			function clearWatch(){
+				if ( watchId ) {
+					document.getElementById("postatus").innerHTML="已停止记录";
+					clearInterval(watchId);
+					watchId = null;
+				}
+			}
+//地图模块
+			var ws=null,wo=null;
+			var em=null,map=null,pcenter=null;
+// H5 plus事件处理
+			function plusReady(){
+				if(!em||ws){return};
+				// 获取窗口对象
+				ws=plus.webview.currentWebview();
+				wo=ws.opener();
+				setTimeout(function(){
+					map=new plus.maps.Map("map");
+					map.showUserLocation( true );
+					map.getUserLocation(function(state,pos){
+						if(0==state){
+							map.centerAndZoom(pos,16);
+						}
+					});
+					getPos();
+				},300);
+				// 显示页面并关闭等待框
+  				ws.show("pop-in");
+  				// Android处理返回键
+				plus.key.addEventListener('backbutton',function(){
+					if(confirm('退出吗？')){
+						//退出时清除cookie
+						plus.navigator.removeAllCookie();
+						plus.runtime.quit();
+					}
+				},false);
+				compatibleAdjust();
+				// 添加cookie
+				plus.navigator.setCookie(url, 'name=aniki');
+			}
+			if(window.plus){
+				plusReady();
+			}else{
+				document.addEventListener("plusready",plusReady,false);
+			}
+
+			// 兼容性样式调整
+			var _adjust=false;
+			function compatibleAdjust(){
+				if(_adjust||!window.plus||!_domReady){
+					return;
+				}
+				_adjust=true;
+				// iOS平台特效
+				if('iOS'==plus.os.name){
+					document.getElementById('content').className='scontent';	// 使用div的滚动条
+					if(navigator.userAgent.indexOf('StreamApp')>=0){	// 在流应用模式下显示返回按钮
+						document.getElementById('back').style.visibility='visible';
+					}
+				}
+				// 预创建二级窗口
+			//	preateWebviews();
+				// 关闭启动界面
+				setTimeout(function(){
+					plus.navigator.closeSplashscreen();
+					plus.navigator.setStatusBarBackground('#FFFFFF');
+					if(plus.navigator.isImmersedStatusbar()){
+						plus.navigator.setStatusBarStyle('UIStatusBarStyleBlackOpaque');
+					}
+				},500);
+			}
+// DOMContentloaded事件处理
+			var _domReady=false;
+			document.addEventListener("DOMContentLoaded",function(){
+				em=document.getElementById("map");
+				_domReady=true;
+				compatibleAdjust();
+				window.plus&&plusReady();
+			},false);
+			
+			function userLocation(){
+				map.showUserLocation( true );
+				map.getUserLocation(function(state,pos){
+					if(0==state){
+						map.centerAndZoom(pos,16);
+					}
+				});
+			}
+			function resetMap(){
+				//map.centerAndZoom(pcenter,12);
+				map.reset();
+			}
+		</script>
+	</body>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/immersed.js"></script>
+	<script type="text/javascript" src="js/sendpos.js" ></script>
+</html>
